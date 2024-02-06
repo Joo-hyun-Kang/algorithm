@@ -1,47 +1,45 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 class MyHashMap {
-    private ArrayList<Integer> indexOfArray;
-    private ArrayList<Integer> values;
+    int[] values;
+    final int initalValue = 1000001;
 
     public MyHashMap() {
-        //'+ 1' make size of Array to 257 that is nearist Prime Number 
-        indexOfArray = new ArrayList<>();
-        values = new ArrayList<>();
+        values = new int[initalValue];
+
+        Arrays.fill(values, -1);
+//        why inital ?
+//        for (int value : values) {
+//            value = -1;
+//        }
     }
 
     public void put(int key, int value) {
         // If the key already exists in the map, update the corresponding value.
-        if (indexOfArray.contains(key)) {
-            int position = convertValuesOfIndex(key);
-
-            values.add(position, value);
-            values.remove((Integer) key);
-
-        } else {
-            indexOfArray.add(key);
-            values.add(value);
+        if (key < 0 || key > initalValue - 1) {
+            return;
         }
+
+        values[key] = value;
     }
 
     public int get(int key) {
         //or -1 if this map contains no mapping for the key.
-        //return hashArray.get(hashCode(key)).get(0);
-        if (!indexOfArray.contains(key))
-        {
-            return -1;
+        if (key < 0 || key > initalValue - 1) {
+            return 0;
         }
 
-        return values.get(convertValuesOfIndex(key));
+        return values[key];
     }
 
     public void remove(int key) {
-        if (indexOfArray.contains(key))
-        {
-            values.remove(convertValuesOfIndex(key));
-            indexOfArray.remove((Integer) key);
+        if (key < 0 || key > initalValue - 1) {
+            return ;
         }
+
+        values[key] = -1;
     }
 
     public int hashCode(int value) {
@@ -55,19 +53,6 @@ class MyHashMap {
 
         return hash;
     }
-
-    public void printHashMap() {
-        for (int i = 0; i < indexOfArray.size(); i++)
-        {
-            System.out.printf("%d : %d \n", indexOfArray.get(i), values.get(i));
-        }
-        System.out.println();
-    }
-
-    private int convertValuesOfIndex(int hashMapKey) {
-        return indexOfArray.indexOf(hashMapKey);
-    }
-
 
     private byte[] intToByteArray(int value) {
         return new byte[] {
