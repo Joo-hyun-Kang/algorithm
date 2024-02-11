@@ -3,8 +3,15 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         MyLinkedList list = new MyLinkedList();
+
+        // add, remove, getValue Test
+        list.remove(5);
+
+        list.getValue(10);
+
         list.PrintAllNode();
 
+        // addCheck
         list.add(1, 2);
         list.add(2, 2);
         list.add(3, 2);
@@ -16,7 +23,28 @@ public class Main {
 
         list.PrintAllNode();
 
+        // readCheck
+        assert (list.getValue(1) == 6);
+        assert (list.getValue(3) == 9);
+        assert (list.getValue(4) == -1);
 
+        list.PrintAllNode();
+
+        // removeChcek
+        list.remove(1);
+        list.PrintAllNode();
+
+        list.remove(3);
+        list.PrintAllNode();
+
+        list.remove(5);
+        list.PrintAllNode();
+
+        list.remove(2);
+        list.PrintAllNode();
+
+        list.remove(5);
+        list.PrintAllNode();
 
 //        {
 //            System.out.println("\n====From Leetcode Test=====");

@@ -1,13 +1,11 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class MyLinkedList {
     private Node root;
 
     public MyLinkedList() {
     }
-
-    // 1 -> 5
-    // 3 -> 7
-
-    // remove
 
     public void add(int key, int value) {
         Node targetNode = TryGetIndexAndNull(key);
@@ -19,40 +17,42 @@ public class MyLinkedList {
         }
     }
 
-    private void SetNewNode(Node node, int key, int value) {
-        if (node == null) {
-            root = new Node(key, value);
-            return;
+    public void remove(int key) {
+        Node targetNode = TryGetIndexAndNull(key);
+        if (targetNode == null) {
+            return ;
         }
-        else {
-            node.setNextNode(new Node(key, value));
-        }
-        Node newNode = node.getNextNode();
-        newNode.setPreNode(node);
-    }
 
-//    public void remove(int key) {
-//        Node node = TryGetIndexAndNull(key);
-//        if (node == null) {
-//            return ;
-//        }
-//
-//        // remove node and connect pre and post Node
-//
-//
-//    }
+        if (targetNode == root) {
+            if (root.getNextNode() == null) {
+                root = null;
+            } else {
+                Node nextNode = root.getNextNode();
+                nextNode.setPreNode(null);
 
-    private Node TryGetIndexAndNull(int key) {
-        Node current = root;
-        while (current != null) {
-            if (key == current.getKey()) {
-                return current;
+                root = nextNode;
             }
 
-            current = current.getNextNode();
-        }
+        } else {
+            Node preNode = targetNode.getPreNode();
+            Node nextNode = targetNode.getNextNode();
 
-        return null;
+            preNode.setNextNode(nextNode);
+            if (nextNode != null) {
+                nextNode.setPreNode(preNode);
+            }
+
+            targetNode.setPreNode(null);
+            targetNode.setNextNode(null);
+        }
+    }
+
+    public int getValue(int key) {
+        Node targetNode = TryGetIndexAndNull(key);
+        if (targetNode == null) {
+            return -1;
+        }
+        return targetNode.getValue();
     }
 
     public void PrintAllNode() {
@@ -80,6 +80,19 @@ public class MyLinkedList {
         System.out.println(builder.toString());
     }
 
+    private Node TryGetIndexAndNull(int key) {
+        Node current = root;
+        while (current != null) {
+            if (key == current.getKey()) {
+                return current;
+            }
+
+            current = current.getNextNode();
+        }
+
+        return null;
+    }
+
     private Node TryFindLastNodeOrNull() {
         if (root == null) {
             return null;
@@ -95,6 +108,18 @@ public class MyLinkedList {
         }
 
         return current;
+    }
+
+    private void SetNewNode(Node node, int key, int value) {
+        if (node == null) {
+            root = new Node(key, value);
+            return;
+        }
+        else {
+            node.setNextNode(new Node(key, value));
+        }
+        Node newNode = node.getNextNode();
+        newNode.setPreNode(node);
     }
 
 }
