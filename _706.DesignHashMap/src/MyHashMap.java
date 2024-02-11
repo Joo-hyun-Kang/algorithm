@@ -1,24 +1,19 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 
 
 class MyHashMap {
     int[] values;
-    final int initalValue = 1000001;
+    final int initialSize = 257;
 
     public MyHashMap() {
-        values = new int[initalValue];
+        values = new int[initialSize];
 
         Arrays.fill(values, -1);
-//        why inital ?
-//        for (int value : values) {
-//            value = -1;
-//        }
     }
 
     public void put(int key, int value) {
         // If the key already exists in the map, update the corresponding value.
-        if (key < 0 || key > initalValue - 1) {
+        if (key < 0 || key > initialSize - 1) {
             return;
         }
 
@@ -27,7 +22,7 @@ class MyHashMap {
 
     public int get(int key) {
         //or -1 if this map contains no mapping for the key.
-        if (key < 0 || key > initalValue - 1) {
+        if (key < 0 || key > initialSize - 1) {
             return 0;
         }
 
@@ -35,7 +30,7 @@ class MyHashMap {
     }
 
     public void remove(int key) {
-        if (key < 0 || key > initalValue - 1) {
+        if (key < 0 || key > initialSize - 1) {
             return ;
         }
 
