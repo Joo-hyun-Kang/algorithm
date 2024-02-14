@@ -2,59 +2,56 @@ import java.util.Arrays;
 
 
 class MyHashMap {
-    int[] values;
+    MyLinkedList[] list;
+    Hash hashFunction;
     final int initialSize = 257;
 
-    public MyHashMap() {
-        values = new int[initialSize];
+    public MyHashMap(Hash hashFunction) {
+        list = new MyLinkedList[initialSize];
+        for (int i = 0; i < list.length; i++) {
+            list[i] = new MyLinkedList();
+        }
 
-        Arrays.fill(values, -1);
+        this.hashFunction = hashFunction;
     }
 
     public void put(int key, int value) {
         // If the key already exists in the map, update the corresponding value.
-        if (key < 0 || key > initialSize - 1) {
+        Integer index = getHashKeyOrNull(key);
+        if (index == null) {
             return;
         }
 
-        values[key] = value;
+        list[index].add(key, value);
     }
 
     public int get(int key) {
         //or -1 if this map contains no mapping for the key.
-        if (key < 0 || key > initialSize - 1) {
-            return 0;
+        Integer index = getHashKeyOrNull(key);
+        if (index == null) {
+            return -1;
         }
 
-        return values[key];
+        return list[index].getValue(key);
     }
 
     public void remove(int key) {
-        if (key < 0 || key > initialSize - 1) {
+        Integer index = getHashKeyOrNull(key);
+        if (index == null) {
             return ;
         }
 
-        values[key] = -1;
+        list[index].remove(key);
     }
 
-    public int hashCode(int value) {
-        byte[] array = intToByteArray(value);
-
-        int hash = 0;
-        for (int i = 0; i < array.length; i++)
-        {
-            hash += array[i];
+    private Integer getHashKeyOrNull(int key) {
+        Integer hashedKey = (Integer) hashFunction.hashcodeOrNull(key);
+        if (hashedKey == null) {
+            assert (hashedKey != null);
+            return null;
         }
 
-        return hash;
-    }
-
-    private byte[] intToByteArray(int value) {
-        return new byte[] {
-                (byte)(value >>> 24),
-                (byte)(value >>> 16),
-                (byte)(value >>> 8),
-                (byte)value};
+        return hashedKey % initialSize;
     }
 }
 
