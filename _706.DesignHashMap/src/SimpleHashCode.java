@@ -11,11 +11,8 @@ public class SimpleHashCode implements Hash {
         int hash = 0;
         for (byte b : array) {
             // 常に正の数がなるようにする
-            if (b < 0) {
-                b >>= 1;
-            }
-
-            hash += b;
+            int positiveByte = b & 0xFF;
+            hash += positiveByte;
         }
 
         return hash;
@@ -23,7 +20,7 @@ public class SimpleHashCode implements Hash {
 
     @Override
     public int calculateCollision() {
-        final int TEST_RANGE = 1_000_000;
+        final int TEST_RANGE = 200;
         int[] counts = new int[TEST_RANGE];
 
         for (int i = 0; i < TEST_RANGE; i++) {
