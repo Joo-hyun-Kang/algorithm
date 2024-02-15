@@ -99,12 +99,9 @@ public class MyLinkedList {
         }
 
         Node current = root;
-        Node nextNode = root;
 
-        nextNode = nextNode.getNextNode();
-        while (nextNode != null) {
+        while (current.getNextNode() != null) {
             current = current.getNextNode();
-            nextNode = nextNode.getNextNode();
         }
 
         return current;
