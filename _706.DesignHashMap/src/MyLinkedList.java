@@ -99,7 +99,6 @@ public class MyLinkedList {
         }
 
         Node current = root;
-
         while (current.getNextNode() != null) {
             current = current.getNextNode();
         }
