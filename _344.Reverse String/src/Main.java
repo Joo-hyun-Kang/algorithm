@@ -8,5 +8,10 @@ public class Main {
 
         System.out.println(textArray);
 
+        char[] text2 = {'s', 'y'};
+        solution.reverseString(text2);
+        System.out.println(text2);
+
+
     }
 }
