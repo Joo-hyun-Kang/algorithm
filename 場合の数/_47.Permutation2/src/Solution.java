@@ -27,12 +27,10 @@ class Solution {
             //index %= nums.length;
 
             if (index > start && nums[index - 1] == nums[index]) {
-                index++;
                 continue;
             }
 
             if (isWidthOverlap.contains(index) ) {
-                index++;
                 continue;
             }
 
@@ -44,8 +42,6 @@ class Solution {
 
             element.remove(element.size() - 1);
             isWidthOverlap.remove(index);
-
-            index++;
         }
     }
 }
