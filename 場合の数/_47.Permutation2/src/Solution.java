@@ -19,15 +19,16 @@ class Solution {
             return ;
         }
 
-        // 1 2 2 2 3
-        boolean isStartOn = false;
         for (int index = 0; index < nums.length; index++)
         {
             if (isWidthOverlap.contains(index)) {
                 continue;
             }
+            // 1 2 3 4
 
-            // 含めている？　ー＞　!isWidthOverlap.contains(index - 1)　
+            // Subset2のstartによって始まりを決めてはいけない
+            // この場合配列のあらゆる値を巡回しないといけないので
+            // !isWidthOverlap.contains(index - 1)　ー＞　上位のノードに属してるかないか見分けてくれる
             if (index > 0 && !isWidthOverlap.contains(index - 1)) {
                 if (nums[index - 1] == nums[index]) {
                     continue;
@@ -37,8 +38,7 @@ class Solution {
             element.add(nums[index]);
             isWidthOverlap.add(index);
 
-            // startはすすんてる　→ 事実上のstartポイント　伝えば
-            // こっちでfor loop?
+            // こっちでfor loop -> for loopはトーリの幹を各段階ごと倍に増やす
             doBacktrack(nums, isWidthOverlap, res, element);
 
             element.remove(element.size() - 1);
