@@ -20,10 +20,6 @@ class Solution {
             return ;
         }
 
-//        if (start > nums.length) {
-//            return ;
-//        }
-
         // 1 2 2 2 3
         boolean isStartOn = false;
         int start = -1;
@@ -36,8 +32,11 @@ class Solution {
                 isStartOn = true;
             }
 
-            if (isStartOn && index > start && nums[index - 1] == nums[index]) {
-                continue;
+            // 含めている？　ー＞　!isWidthOverlap.contains(index - 1)　
+            if (isStartOn && index > start && !isWidthOverlap.contains(index - 1)) {
+                if (nums[index - 1] == nums[index]) {
+                    continue;
+                }
             }
 
             element.add(nums[index]);
