@@ -9,36 +9,43 @@ class Solution {
 
         Arrays.sort(nums);
 
-        doBacktrack(0, nums, isWidthOverlap, isStemOverlap, res, element);
+        doBacktrack(nums, isWidthOverlap, isStemOverlap, res, element);
 
         return res;
     }
 
-    private void doBacktrack(int start, int[] nums, HashSet<Integer> isWidthOverlap, HashSet<Integer> isStemOverlap, List<List<Integer>> res, List<Integer> element) {
+    private void doBacktrack(int[] nums, HashSet<Integer> isWidthOverlap, HashSet<Integer> isStemOverlap, List<List<Integer>> res, List<Integer> element) {
         if (element.size() == nums.length) {
             res.add(new ArrayList<>(element));
             return ;
         }
 
+//        if (start > nums.length) {
+//            return ;
+//        }
+
         // 1 2 2 2 3
-        //
+        boolean isStartOn = false;
+        int start = -1;
         for (int index = 0; index < nums.length; index++)
         {
-            //index %= nums.length;
-
-            if (index > start && nums[index - 1] == nums[index]) {
+            if (isWidthOverlap.contains(index)) {
                 continue;
+            } else if (!isStartOn) {
+                start = index;
+                isStartOn = true;
             }
 
-            if (isWidthOverlap.contains(index) ) {
+            if (isStartOn && index > start && nums[index - 1] == nums[index]) {
                 continue;
             }
 
             element.add(nums[index]);
             isWidthOverlap.add(index);
 
-            // 課程
-            doBacktrack(index + 1, nums, isWidthOverlap, isStemOverlap, res, element);
+            // startはすすんてる　→ 事実上のstartポイント　伝えば
+            // こっちでfor loop?
+            doBacktrack(nums, isWidthOverlap, isStemOverlap, res, element);
 
             element.remove(element.size() - 1);
             isWidthOverlap.remove(index);
