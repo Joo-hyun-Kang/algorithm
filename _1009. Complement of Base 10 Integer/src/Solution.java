@@ -1,13 +1,13 @@
 class Solution {
     public int bitwiseComplement(int n) {
-        if (n == 0) {
-            return 1;
-        }
-
         return recursive(n,0);
     }
 
     private int recursive(int value, int depths) {
+        if (value == 0 && depths == 0) {
+            return 1;
+        }
+
         if (value == 0) {
             return 0;
         }
