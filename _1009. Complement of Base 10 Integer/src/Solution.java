@@ -3,19 +3,32 @@ class Solution {
         return doLoop(n);
     }
 
+    public int doBitmask(int n) {
+        if (n == 0) {
+            return 1;
+        }
+
+        int mask = 1;
+        while (mask < n) {
+            mask = (mask << 1) | 1;
+        }
+
+        return ~n & mask;
+    }
+
     private int doLoop(int value) {
         if (value == 0) {
             return 1;
         }
 
-        int deps = 0;
+        int posValue = 1;
         int res = 0;
         while (value > 0) {
             if (value % 2 == 0) {
-                res += 1 * Math.pow(2, deps);
+                res += posValue;
             }
             value /= 2;
-            deps++;
+            posValue <<= 1;
         }
 
         return res;
