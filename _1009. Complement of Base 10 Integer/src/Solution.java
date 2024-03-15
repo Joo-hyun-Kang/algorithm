@@ -1,6 +1,24 @@
 class Solution {
     public int bitwiseComplement(int n) {
-        return recursive(n,0);
+        return doLoop(n);
+    }
+
+    private int doLoop(int value) {
+        if (value == 0) {
+            return 1;
+        }
+
+        int deps = 0;
+        int res = 0;
+        while (value > 0) {
+            if (value % 2 == 0) {
+                res += 1 * Math.pow(2, deps);
+            }
+            value /= 2;
+            deps++;
+        }
+
+        return res;
     }
 
     private int recursive(int value, int depths) {
@@ -26,7 +44,4 @@ class Solution {
 
         return res;
     }
-
-
-
 }
