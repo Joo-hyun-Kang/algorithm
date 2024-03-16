@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 public class Solution {
     public String toHex(int num) {
         if (num == 0) {
@@ -7,24 +5,21 @@ public class Solution {
         }
 
         StringBuilder builder = new StringBuilder();
-        HashMap<Integer, Character> map = new HashMap<>();
-        map.put(10, 'a');
-        map.put(11, 'b');
-        map.put(12, 'c');
-        map.put(13, 'd');
-        map.put(14, 'e');
-        map.put(15, 'f');
 
-        while (num > 0) {
-            int base16 = num % 16;
+        char[] hexChars = new char[]{'a', 'b', 'c', 'd', 'e', 'f'};
 
-            if (base16 >= 10) {
-                builder.insert(0, map.get(base16));
+        int bitwise = (int) Math.pow(2, 4) - 1;
+
+        while (num != 0) {
+            int intToByte = num & bitwise;
+
+            if (intToByte >= 10) {
+                builder.insert(0, hexChars[intToByte % 16 - 10]);
             } else {
-                builder.insert(0, base16);
+                builder.insert(0, intToByte);
             }
 
-            num /= 16;
+            num >>>= 4;
         }
 
         return builder.toString();

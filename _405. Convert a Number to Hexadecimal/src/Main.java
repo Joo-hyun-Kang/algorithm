@@ -3,5 +3,8 @@ public class Main {
         Solution sol = new Solution();
 
         System.out.println(sol.toHex(0));
+        System.out.println(sol.toHex(-1));
+        System.out.println(sol.toHex(5));
+        System.out.println(sol.toHex(26));
     }
 }
