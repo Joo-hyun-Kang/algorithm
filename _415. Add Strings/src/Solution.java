@@ -19,11 +19,15 @@ class Solution {
             posValue *= 10;
         }
 
-        int res = res1 + res2;
+        long res = res1 + res2;
+        if (res == 0) {
+            return "0";
+        }
+
         StringBuilder builder = new StringBuilder();
+
         while (res > 0) {
-            char temp = (char) (ASCII_TO_INTERGER_VALUE + res % 10);
-            builder.insert(0, temp);
+            builder.insert(0, (char) (ASCII_TO_INTERGER_VALUE + res % 10));
             res /= 10;
         }
 
