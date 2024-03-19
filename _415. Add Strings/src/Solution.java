@@ -2,33 +2,34 @@ class Solution {
     public String addStrings(String num1, String num2) {
         char[] arrayNum1 = num1.toCharArray();
         char[] arrayNum2 = num2.toCharArray();
+
         final int ASCII_TO_INTERGER_VALUE = 48;
 
-        int posValue = 1;
-        int res1 = 0;
-        int res2 = 0;
-
-        for (int i = arrayNum1.length - 1; i >= 0; i--) {
-            res1 += (arrayNum1[i] - ASCII_TO_INTERGER_VALUE) * posValue;
-            posValue *= 10;
-        }
-
-        posValue = 1;
-        for (int i = arrayNum2.length - 1; i >= 0; i--) {
-            res2 += (arrayNum2[i] - ASCII_TO_INTERGER_VALUE) * posValue;
-            posValue *= 10;
-        }
-
-        long res = res1 + res2;
-        if (res == 0) {
-            return "0";
-        }
-
+        int len1 = arrayNum1.length - 1;
+        int len2 = arrayNum2.length - 1;
         StringBuilder builder = new StringBuilder();
+        int advanceValue = 0;
 
-        while (res > 0) {
-            builder.insert(0, (char) (ASCII_TO_INTERGER_VALUE + res % 10));
-            res /= 10;
+        while (len1 >= 0 || len2 >= 0) {
+            int digit1 = len1 >= 0 ? (arrayNum1[len1] - ASCII_TO_INTERGER_VALUE) : 0;
+            int digit2 = len2 >= 0 ? (arrayNum2[len2] - ASCII_TO_INTERGER_VALUE) : 0;
+
+            int sum = digit1 + digit2 + advanceValue;
+
+            advanceValue = 0;
+            if (sum >= 10) {
+                advanceValue = 1;
+                sum -= 10;
+            }
+
+            builder.insert(0, (char) (ASCII_TO_INTERGER_VALUE + sum));
+
+            len1--;
+            len2--;
+        }
+
+        if (advanceValue == 1) {
+            builder.insert(0, "1");
         }
 
         return builder.toString();
