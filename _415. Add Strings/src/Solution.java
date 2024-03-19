@@ -1,7 +1,5 @@
 class Solution {
     public String addStrings(String num1, String num2) {
-
-        // 123
         char[] arrayNum1 = num1.toCharArray();
         char[] arrayNum2 = num2.toCharArray();
         final int ASCII_TO_INTERGER_VALUE = 48;
@@ -21,9 +19,14 @@ class Solution {
             posValue *= 10;
         }
 
-        int sum = res1 + res2;
-        System.out.println(sum);
+        int res = res1 + res2;
+        StringBuilder builder = new StringBuilder();
+        while (res > 0) {
+            char temp = (char) (ASCII_TO_INTERGER_VALUE + res % 10);
+            builder.insert(0, temp);
+            res /= 10;
+        }
 
-        return null;
+        return builder.toString();
     }
 }
