@@ -1,14 +1,12 @@
 public class Main {
     public static void main(String[] args) {
+        int num1 = 123 * 6;
+        int num2 = 123 * 50;
+        int num3 = 123 * 400;
 
-        StringBuilder b = new StringBuilder();
-        b.append(1);
-        b.append(2);
-        b.append(3);
-        b.append(4);
-        b.append(5);
-
-        System.out.println(b.toString());
+        int sum = num1 + num2 + num3;
+        System.out.println(sum);
+        System.out.println(123 * 456);
 
     }
 }
