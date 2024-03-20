@@ -1,10 +1,14 @@
 public class Main {
     public static void main(String[] args) {
 
-        int temp = 0xffffffff >>> 1;
-        System.out.println(temp);
+        StringBuilder b = new StringBuilder();
+        b.append(1);
+        b.append(2);
+        b.append(3);
+        b.append(4);
+        b.append(5);
 
-        temp <<= 1;
-        System.out.println(temp);
+        System.out.println(b.toString());
+
     }
 }
