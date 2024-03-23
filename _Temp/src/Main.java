@@ -1,12 +1,18 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        int num1 = 123 * 6;
-        int num2 = 123 * 50;
-        int num3 = 123 * 400;
+        int size = 10;
+        ArrayList<Integer> intergerList = new ArrayList<>(Collections.nCopies(size, 0));
 
-        int sum = num1 + num2 + num3;
-        System.out.println(sum);
-        System.out.println(123 * 456);
+        intergerList.set(3, 5);
+        int i = 0;
+        for (Integer integer : intergerList) {
+            System.out.printf("%d(%d) ", integer, i++);
+        }
 
     }
 }
