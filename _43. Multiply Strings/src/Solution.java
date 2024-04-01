@@ -3,16 +3,11 @@ import java.util.Collections;
 
 class Solution {
     public String multiply(String num1, String num2) {
-        StringBuilder builder = new StringBuilder();
-        ArrayList<Integer> values = new ArrayList<Integer>(Collections.nCopies(num1.length() + num2.length() - 1, 0));
-
-        if (num1.length() == 1 && num1.charAt(0) - '0' == 0) {
-            return builder.append(0).toString();
+        if (num1.equals('0') || num2.equals('0')) {
+            return "0";
         }
 
-        if (num2.length() == 1 && num2.charAt(0) - '0' == 0) {
-            return builder.append(0).toString();
-        }
+        ArrayList<Integer> values = new ArrayList<Integer>(Collections.nCopies(num1.length() + num2.length(), 0));
 
         int len1 = num1.length() - 1;
         int digitPos1 = 0;
@@ -37,16 +32,17 @@ class Solution {
             len1--;
         }
 
-        int rest = 0;
+        StringBuilder builder = new StringBuilder();
+        int carry = 0;
         for (Integer value : values) {
-            value += rest;
+            value += carry;
             builder.append(value % 10);
-            rest = value / 10;
+            carry = value / 10;
         }
 
-        while (rest != 0) {
-            builder.append(rest % 10);
-            rest /= 10;
+        while (carry != 0) {
+            builder.append(carry % 10);
+            carry /= 10;
         }
 
         return builder.reverse().toString();
