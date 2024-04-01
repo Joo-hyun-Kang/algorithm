@@ -1,20 +1,18 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 class Solution {
     public String multiply(String num1, String num2) {
-
-        /*
-            advance
-            最初の位置
-
-            "23"
-            "456"
-         */
-
         StringBuilder builder = new StringBuilder();
         ArrayList<Integer> values = new ArrayList<Integer>(Collections.nCopies(num1.length() + num2.length() - 1, 0));
+
+        if (num1.length() == 1 && num1.charAt(0) - '0' == 0) {
+            return builder.append(0).toString();
+        }
+
+        if (num2.length() == 1 && num2.charAt(0) - '0' == 0) {
+            return builder.append(0).toString();
+        }
 
         int len1 = num1.length() - 1;
         int digitPos1 = 0;
@@ -39,8 +37,16 @@ class Solution {
             len1--;
         }
 
+        int rest = 0;
         for (Integer value : values) {
-            System.out.println(value);
+            value += rest;
+            builder.append(value % 10);
+            rest = value / 10;
+        }
+
+        while (rest != 0) {
+            builder.append(rest % 10);
+            rest /= 10;
         }
 
         return builder.reverse().toString();
