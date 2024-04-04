@@ -8,7 +8,7 @@ class Solution {
         //　最適な回答を確かめる
 
 
-        if (num1.equals('0') || num2.equals('0')) {
+        if (num1.equals("0") || num2.equals("0")) {
             return "0";
         }
 
@@ -40,10 +40,10 @@ class Solution {
 
         StringBuilder builder = new StringBuilder();
         int carry = 0;
-        for (int value : values) {
-            value += carry;
-            builder.append(value % 10);
-            carry = value / 10;
+        for (int i = 0; i < values.length - 1; i++) {
+            values[i] += carry;
+            builder.append(values[i] % 10);
+            carry = values[i] / 10;
         }
 
         while (carry != 0) {
