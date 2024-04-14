@@ -1,20 +1,6 @@
 class Solution {
     public boolean validUtf8(int[] data) {
-        // 129
-        // 1000 0001
-        // 1000 0000
-        // 0
-        // isAscii
-
-        /*
-        1          |   0xxxxxxx
-        2          |   110xxxxx 10xxxxxx
-        3          |   1110xxxx 10xxxxxx 10xxxxxx
-        4          |   11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
-        */
-
-        //1110 1011 1000 1100 0000 0100.
-        int[] prefixUTF8FistByte = new int[]{0b11000000, 0b11100000, 0b11110000};
+        int[] prefixUTF8FistByte = new int[]{0b1100, 0b1110, 0b1111};
         final int prefixUTF8 = 0b10000000;
         boolean isUTF8 = true;
 
@@ -26,9 +12,9 @@ class Solution {
             }
 
             int UTFByteLength = 0;
+            int firstBitUTF8 = data[i] >> 4;
             while (UTFByteLength < prefixUTF8FistByte.length) {
-                int temp = prefixUTF8FistByte[UTFByteLength] & data[i];
-                if (temp == prefixUTF8FistByte[UTFByteLength]) {
+                if (firstBitUTF8 == prefixUTF8FistByte[UTFByteLength]) {
                     i++;
                     break;
                 }

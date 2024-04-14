@@ -5,14 +5,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        int size = 10;
-        ArrayList<Integer> intergerList = new ArrayList<>(Collections.nCopies(size, 0));
+        int temp = 0b1100_0000;
+        System.out.println(temp);
 
-        intergerList.set(3, 5);
-        int i = 0;
-        for (Integer integer : intergerList) {
-            System.out.printf("%d(%d) ", integer, i++);
-        }
-
+        temp >>= 6;
+        System.out.println(temp);
     }
 }
