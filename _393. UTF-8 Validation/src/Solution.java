@@ -5,7 +5,6 @@ class Solution {
 
         int[] prefixUTF8FistByte = new int[]{0b11000, 0b11100, 0b11110};
         final int prefixUTF8 = 0b10000000;
-        final int OVER_UTF_BITS_LANGE = 4;
 
         int i = 0;
         boolean isUTF8 = false;
@@ -13,6 +12,8 @@ class Solution {
             isUTF8 = false;
 
             if (isAcsii(data[i])) {
+                System.out.printf("%d: %d¥n", i, data[i]);
+                
                 i++;
                 isUTF8 = true;
                 continue;
@@ -41,7 +42,11 @@ class Solution {
                 }
             }
 
-            if (!isFollowedBytes) {
+            if (isFollowedBytes) {
+                System.out.printf("%d: %d¥n", i - 1, data[i - 1]);
+                System.out.println();
+                isUTF8 = true;
+            } else {
                 break;
             }
         }
