@@ -1,0 +1,37 @@
+１。ループで二つの値を比べる時にスッキリコードを実装するか？
+bool変数を使ったのにもういい方法があったと思う
+
+String value = builder.reverse().toString();
+String[] prefixUTF8FistByte = {new String("110"), new String("1110"), new String("11110")};
+
+int isUTF8 = -1;
+for (int i = 0; i < prefixUTF8FistByte.length; i++) {
+    boolean isEqual = true;
+    for (int j = 0; j < prefixUTF8FistByte[i].length(); j++) {
+        if (value.charAt(j) != prefixUTF8FistByte[i].charAt(j)) {
+            isEqual = false;
+            break;
+        }
+    }
+
+    if (isEqual) {
+        isUTF8 = i + 1;
+        break;
+    }
+}
+
+return isUTF8;
+
+2. ビット演算に通じてあたいたちを検査することが慣れて来なかった
+こっちで 11000010場合は下の条件文は通り過ぎる
+
+            boolean isFollowedBytes = true;
+            final int prefixUTF8 = 0b10000000;
+            for (int j = followedUTFBytes; j > 0; j--) {
+                int temp = data[++i] & prefixUTF8;
+
+                if (temp != prefixUTF8) {
+                    isFollowedBytes = false;
+                    break;
+                }
+            }
