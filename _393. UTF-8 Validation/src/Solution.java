@@ -5,10 +5,10 @@ class Solution {
 
         int[] prefixUTF8FistByte = new int[]{0b11000, 0b11100, 0b11110};
         final int prefixUTF8 = 0b10000000;
-        final int OVER_UTF_BITS = 4;
-        boolean isUTF8 = false;
+        final int OVER_UTF_BITS_LANGE = 4;
 
         int i = 0;
+        boolean isUTF8 = false;
         while (i < data.length) {
             isUTF8 = false;
 
@@ -18,34 +18,31 @@ class Solution {
                 continue;
             }
 
-            int UTFByteLength = 0;
-            int firstBitUTF8 = data[i] >> 3;
-            while (UTFByteLength < prefixUTF8FistByte.length) {
-                if (firstBitUTF8 == prefixUTF8FistByte[UTFByteLength]) {
+            int followedUTFBytes = -1;
+            int firstBitUTF8 = data[i++] >> 3;
+            for (int j = 0; j < prefixUTF8FistByte.length; j++) {
+                if (firstBitUTF8 == prefixUTF8FistByte[j]) {
+                    followedUTFBytes = j + 1;
                     break;
                 }
-                UTFByteLength++;
             }
-            UTFByteLength++;
 
-            if (UTFByteLength >= OVER_UTF_BITS) {
+            if (followedUTFBytes == -1) {
                 break;
             }
 
-            i++;
-            while (UTFByteLength > 0 && i < data.length) {
-                int temp = data[i] & prefixUTF8;
-                i++;
+            boolean isFollowedBytes = true;
+            for (int j = followedUTFBytes; j > 0; j--) {
+                int temp = data[i++] & prefixUTF8;
 
                 if (temp != prefixUTF8) {
+                    isFollowedBytes = false;
                     break;
                 }
-
-                UTFByteLength--;
             }
 
-            if (UTFByteLength <= 0) {
-                isUTF8 = true;
+            if (!isFollowedBytes) {
+                break;
             }
         }
 
