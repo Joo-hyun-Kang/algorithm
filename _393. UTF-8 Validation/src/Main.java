@@ -31,7 +31,7 @@ public class Main {
         array1 = new int[]{197,194,1};
         System.out.println(s.validUtf8(array1));
 
-
+        System.out.println();
 
         /*
 
