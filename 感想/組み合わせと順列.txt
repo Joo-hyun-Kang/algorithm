@@ -1,0 +1,96 @@
+1. 重複の可否に応じて、ループのスタット位置が異なる
+サッブセットと組み合わせは集合で重複はダメ
+→　基本的にツーリで問題を解くなので、ループでインデクスの最初位置を以前の再帰してから一つ増加すると重複に避けられる
+
+    private void backtrack(int[] nums, int start, List<Integer> path, List<List<Integer>> res) {
+        res.add(new ArrayList<>(path));
+
+        for (int i = start; i < nums.length; i++) {
+            //　現在の予想をパスに追加
+            path.add(nums[i]);
+
+            //　次の要素を選択するために再帰的にバックトラック
+            backtrack(nums, i + 1, path, res);
+
+            // パックトラック：最後に追加した要素をパスから削除
+            path.remove(path.size() - 1);
+        }
+
+        //　再帰を利用して渦巻きように下のくりかえるループを作る
+    }
+
+順列はこのまま並べることなので、集合の重複が必要
+→ 逆で以前に訪れた要素（ようそ）にまた行かないと重複を表せない
+→ ループのスタートの位置が０から始まる。ただ、ツーリの上の要素を記録するべく、ブールの配列とかマップが必要である。
+
+    private void Backtrack(int[] nums, List<List<Integer>> res, List<Integer> elements, boolean[] flags) {
+        if (elements.size() == nums.length) {
+            res.add(new ArrayList<>(elements));
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++)
+        {
+            if (flags[i] == true) {
+                continue;
+            }
+
+            elements.add(nums[i]);
+
+            flags[i] = true;
+
+            Backtrack(nums, res, elements, flags);
+
+            elements.remove(elements.size() - 1);
+
+            flags[i] = false;
+        }
+    }
+
+
+２。ツーリの幹を飛び越すロージックをコードで現れ方
+組み合わせ：Subset2のフォルダーの参考。
+
+
+順列
+→ 組み合わせと異なる点は与えられた要素を全部、巡回しないとならないので、ブーリの配列とマップが必要。
+→ 基本的な原理はパラーミーダの要素の直前かないか判断することだ。
+→ !isWidthOverlap.contains(index - 1) ：　直前の要素がツーリのすぐ上の要素がない場合、以前の変数と同じか検査する
+→ 1 2 2 2 で　最初に２がツーリの上位の場合、二つ目の２はツーリの初めての幹なので条件を飛び越す。三番目の２は　!isWidthOverlap.contains(index - 1)に満足である
+
+
+    private void doBacktrack(int[] nums, HashSet<Integer> isWidthOverlap, List<List<Integer>> res, List<Integer> element) {
+        if (element.size() == nums.length) {
+            res.add(new ArrayList<>(element));
+            return ;
+        }
+
+        for (int index = 0; index < nums.length; index++)
+        {
+            if (isWidthOverlap.contains(index)) {
+                continue;
+            }
+            // 1 2 3 4
+
+            // Subset2のstartによって始まりを決めてはいけない
+            // この場合配列のあらゆる値を巡回しないといけないので
+
+            // !isWidthOverlap.contains(index - 1)　
+            // -> Subset2の問題で if(i > start)の条件と同じ機能
+            // -> 重複の要素の下のツーリの最初幹か判断してくれる
+            if (index > 0 && !isWidthOverlap.contains(index - 1)) {
+                if (nums[index - 1] == nums[index]) {
+                    continue;
+                }
+            }
+
+            element.add(nums[index]);
+            isWidthOverlap.add(index);
+
+            // こっちでfor loop -> for loopはトーリの幹を各段階ごと倍に増やす
+            doBacktrack(nums, isWidthOverlap, res, element);
+
+            element.remove(element.size() - 1);
+            isWidthOverlap.remove(index);
+        }
+    }

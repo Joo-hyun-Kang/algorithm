@@ -28,7 +28,10 @@ class Solution {
 
             // Subset2のstartによって始まりを決めてはいけない
             // この場合配列のあらゆる値を巡回しないといけないので
-            // !isWidthOverlap.contains(index - 1)　ー＞　上位のノードに属してるかないか見分けてくれる
+
+            // !isWidthOverlap.contains(index - 1)　
+            // -> Subset2の問題で if(i > start)の条件と同じ機能
+            // -> 重複の要素の下のツーリの最初幹か判断してくれる
             if (index > 0 && !isWidthOverlap.contains(index - 1)) {
                 if (nums[index - 1] == nums[index]) {
                     continue;
