@@ -1,0 +1,3 @@
+１。count =+ getfactoral(entry.getValue()) / 2;
+コンパイルエラーではなく、count = (+getFactorial(entry.getValue()) / 2);
+Cも同じようにコンパイルエラーではない。

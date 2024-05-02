@@ -10,7 +10,7 @@ public class main {
 
         int[][] rectangles2 = new int[][]
         {
-            {4,5},{7,8}
+            {4,2},{1,3},{4,1},{4,2},{2,4},{1,1},{1,1}
         };
         System.out.println(s.interchangeableRectangles(rectangles2));
     }
