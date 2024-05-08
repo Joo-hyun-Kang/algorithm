@@ -3,6 +3,8 @@ import java.util.Map;
 
 class Solution {
     public long interchangeableRectangles(int[][] rectangles) {
+        // １。コードをしっかり整える
+        // ２。浮動小数点をまとめる
         HashMap<Double, Integer> map = new HashMap<>();
 
         for (int i = 0; i < rectangles.length; ++i) {
