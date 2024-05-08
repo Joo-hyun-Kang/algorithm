@@ -94,3 +94,47 @@
             isWidthOverlap.remove(index);
         }
     }
+
+3. 組み合わせの場合,　階乗（factorial）でなく、合計演算で場合の数を得られる。
+
+最初からカウントを数えてするなら、階乗の結果と同じ。
+    public long interchangeableRectangles(int[][] rectangles) {
+        HashMap<Double, Integer> map = new HashMap<>();
+
+        long count = 0;
+        for (int[] rectangle : rectangles) {
+            double value = rectangle[0] / (double) rectangle[1];
+            if (map.containsKey(value)) {
+                count += map.get(value);
+                map.put(value, map.get(value) + 1);
+            } else {
+                map.put(value, 1);
+            }
+        }
+
+        return count;
+    }
+
+配列に格納して同じことをカーソルで数えの方法もある
+    public long interchangeableRectangles(int[][] rectangles) {
+        int length = rectangles.length;
+        double[] ratios = new double[length];
+
+        for (int i = 0; i < length; ++i) {
+            ratios[i] = rectangles[i][0] / (double) rectangles[i][1];
+        }
+        Arrays.sort(ratios);
+
+        long curr = 0;
+        long res = 0;
+        for (int j = 0; j < length - 1; j++) {
+            if (ratios[j] == ratios[j + 1]) {
+                curr++;
+                res += curr;
+            } else {
+                curr = 0;
+            }
+        }
+
+        return res;
+    }
